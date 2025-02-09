@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood-Based Playlist Generator</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?aesthetic,soft,pink,stars') no-repeat center center/cover;
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: rgba(255, 192, 203, 0.85);
+            padding: 30px;
+            width: 70%;
+            margin: 50px auto;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(255, 182, 193, 0.9);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff69b4;
+        }
+
+        select, button {
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #e6006f;
+        }
+
+        #playlist {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        li {
+            padding: 8px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎀 Mood-Based Playlist Generator 🎶</h1>
+        <p>Select your mood and get a curated playlist with Malayalam, Hindi & Tamil songs!</p>
+
+        <select id="mood">
+            <option value="happy">Happy 😊</option>
+            <option value="sad">Sad 😢</option>
+            <option value="romantic">Romantic ❤️</option>
+            <option value="energetic">Energetic 🔥</option>
+            <option value="chill">Chill 🌸</option>
+        </select>
+
+        <button onclick="generatePlaylist()">Generate Playlist</button>
+
+        <div id="playlist"></div>
+    </div>
+
+    <script>
+        const playlists = {
+            happy: [
+                ["Jimikki Kammal (Malayalam)", "https://www.youtube.com/watch?v=7EOoZTFA6Wk"],
+                ["Vaathi Coming (Tamil)", "https://www.youtube.com/watch?v=SjXUy1h9J3U"],
+                ["Kala Chashma (Hindi)", "https://www.youtube.com/watch?v=k4yXQkG2s1E"],
+                ["Handsome Returns (Tamil)", "https://www.youtube.com/watch?v=qOS2NjONoeg"],
+                ["Enjoy Enjaami (Tamil)", "https://www.youtube.com/watch?v=eYq7WapuDLU"],
+                ["Butta Bomma (Telugu)", "https://www.youtube.com/watch?v=3hB-jrwpbxM"],
+                ["Tera Hone Laga Hoon (Hindi)", "https://www.youtube.com/watch?v=P8PWN1OmZOA"],
+                ["Why This Kolaveri Di (Tamil)", "https://www.youtube.com/watch?v=YR12Z8f1Dh8"],
+                ["Premalu Title Track (Malayalam)", "https://www.youtube.com/watch?v=KhDgrL4pXGQ"],
+                ["Rowdy Baby (Tamil)", "https://www.youtube.com/watch?v=3boqddtfdVo"],
+                ["Ghungroo (Hindi)", "https://www.youtube.com/watch?v=6s-40ncXVhU"],
+                ["Cheap Thrills (English)", "https://www.youtube.com/watch?v=nYh-n7EOtMA"]
+            ],
+            sad: [
+                ["Agar Tum Saath Ho (Hindi)", "https://www.youtube.com/watch?v=sK7riqg2mr4"],
+                ["Uyire (Tamil)", "https://www.youtube.com/watch?v=7e4c8z_sONk"],
+                ["Parayuvaan (Malayalam)", "https://www.youtube.com/watch?v=IAnj6JUoW14"],
+                ["Tum Hi Ho (Hindi)", "https://www.youtube.com/watch?v=IvPAfeytDhk"],
+                ["Mazhaye Mazhaye (Malayalam)", "https://www.youtube.com/watch?v=wGm-mU3L8zg"]
+            ],
+            romantic: [
+                ["Mann Mera Jaan (Hindi)", "https://www.youtube.com/watch?v=ETfRUVn2hHc"],
+                ["Kannaana Kanney (Tamil)", "https://www.youtube.com/watch?v=RcYoV0-WrBs"],
+                ["Ninne Ninne (Malayalam)", "https://www.youtube.com/watch?v=akG55i0Fqsk"],
+                ["Zaalima (Hindi)", "https://www.youtube.com/watch?v=Jq3i-_qlB6U"],
+                ["Uyiril Thodum (Malayalam)", "https://www.youtube.com/watch?v=9sDX78YlgpU"]
+            ],
+            energetic: [
+                ["Aaluma Doluma (Tamil)", "https://www.youtube.com/watch?v=DK-G21j1sHo"],
+                ["Jai Ho (Hindi)", "https://www.youtube.com/watch?v=9Lz_B0eY8gk"],
+                ["Ghungroo (Hindi)", "https://www.youtube.com/watch?v=2Vv-BfVoq4g"],
+                ["Vathi Raid (Tamil)", "https://www.youtube.com/watch?v=kBkpxAZhL2U"],
+                ["Guleba (Tamil)", "https://www.youtube.com/watch?v=FBxYCm-DO3Q"]
+            ],
+            chill: [
+                ["Shape of You (English)", "https://www.youtube.com/watch?v=JGwWNGJdvx8"],
+                ["Sunflower (English)", "https://www.youtube.com/watch?v=ApXoWvfEYVU"],
+                ["Senorita (English)", "https://www.youtube.com/watch?v=Pkh8UtuejGw"],
+                ["Hasi Ban Gaye (Hindi)", "https://www.youtube.com/watch?v=8d5QEWdHchk"],
+                ["Njan Jackson (Malayalam)", "https://www.youtube.com/watch?v=ZcLgqjsrn7I"]
+            ]
+        };
+
+        function generatePlaylist() {
+            let mood = document.getElementById("mood").value;
+            let playlistDiv = document.getElementById("playlist");
+
+            let songs = playlists[mood];
+
+            playlistDiv.innerHTML = `<h2>🎧 Your ${mood.charAt(0).toUpperCase() + mood.slice(1)} Playlist</h2><ul>` + 
+                songs.map(song => `<li><a href="${song[1]}" target="_blank">${song[0]}</a></li>`).join("") + `</ul>`;
+        }
+    </script>
+</body>
+</html>
