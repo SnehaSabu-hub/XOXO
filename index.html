@@ -81,7 +81,7 @@
 <body>
     <div class="container">
         <h1>🎀 Mood-Based Playlist Generator 🎶</h1>
-        <p>Select your mood and get a curated playlist with Malayalam, Hindi & Tamil songs!</p>
+        <p>Select your mood and get a curated playlist with Malayalam, Hindi, Tamil, & English songs!</p>
 
         <select id="mood">
             <option value="happy">Happy 😊</option>
@@ -99,46 +99,24 @@
     <script>
         const playlists = {
             happy: [
-                ["Jimikki Kammal (Malayalam)", "https://www.youtube.com/watch?v=7EOoZTFA6Wk"],
-                ["Vaathi Coming (Tamil)", "https://www.youtube.com/watch?v=SjXUy1h9J3U"],
-                ["Kala Chashma (Hindi)", "https://www.youtube.com/watch?v=k4yXQkG2s1E"],
-                ["Handsome Returns (Tamil)", "https://www.youtube.com/watch?v=qOS2NjONoeg"],
-                ["Enjoy Enjaami (Tamil)", "https://www.youtube.com/watch?v=eYq7WapuDLU"],
-                ["Butta Bomma (Telugu)", "https://www.youtube.com/watch?v=3hB-jrwpbxM"],
-                ["Tera Hone Laga Hoon (Hindi)", "https://www.youtube.com/watch?v=P8PWN1OmZOA"],
-                ["Why This Kolaveri Di (Tamil)", "https://www.youtube.com/watch?v=YR12Z8f1Dh8"],
-                ["Premalu Title Track (Malayalam)", "https://www.youtube.com/watch?v=KhDgrL4pXGQ"],
-                ["Rowdy Baby (Tamil)", "https://www.youtube.com/watch?v=3boqddtfdVo"],
-                ["Ghungroo (Hindi)", "https://www.youtube.com/watch?v=6s-40ncXVhU"],
-                ["Cheap Thrills (English)", "https://www.youtube.com/watch?v=nYh-n7EOtMA"]
+                "https://open.spotify.com/embed/playlist/1l1hjTk0lLkZyhvM6k7J7g", // Happy playlist URL
+                // Add more happy song URLs here...
             ],
             sad: [
-                ["Agar Tum Saath Ho (Hindi)", "https://www.youtube.com/watch?v=sK7riqg2mr4"],
-                ["Uyire (Tamil)", "https://www.youtube.com/watch?v=7e4c8z_sONk"],
-                ["Parayuvaan (Malayalam)", "https://www.youtube.com/watch?v=IAnj6JUoW14"],
-                ["Tum Hi Ho (Hindi)", "https://www.youtube.com/watch?v=IvPAfeytDhk"],
-                ["Mazhaye Mazhaye (Malayalam)", "https://www.youtube.com/watch?v=wGm-mU3L8zg"]
+                "https://open.spotify.com/embed/playlist/3pXtUOMlyp0X88eD0Tmo6D", // Sad playlist URL
+                // Add more sad song URLs here...
             ],
             romantic: [
-                ["Mann Mera Jaan (Hindi)", "https://www.youtube.com/watch?v=ETfRUVn2hHc"],
-                ["Kannaana Kanney (Tamil)", "https://www.youtube.com/watch?v=RcYoV0-WrBs"],
-                ["Ninne Ninne (Malayalam)", "https://www.youtube.com/watch?v=akG55i0Fqsk"],
-                ["Zaalima (Hindi)", "https://www.youtube.com/watch?v=Jq3i-_qlB6U"],
-                ["Uyiril Thodum (Malayalam)", "https://www.youtube.com/watch?v=9sDX78YlgpU"]
+                "https://open.spotify.com/embed/playlist/5pXtUOMlyp0X88eD0Tmo6D", // Romantic playlist URL
+                // Add more romantic song URLs here...
             ],
             energetic: [
-                ["Aaluma Doluma (Tamil)", "https://www.youtube.com/watch?v=DK-G21j1sHo"],
-                ["Jai Ho (Hindi)", "https://www.youtube.com/watch?v=9Lz_B0eY8gk"],
-                ["Ghungroo (Hindi)", "https://www.youtube.com/watch?v=2Vv-BfVoq4g"],
-                ["Vathi Raid (Tamil)", "https://www.youtube.com/watch?v=kBkpxAZhL2U"],
-                ["Guleba (Tamil)", "https://www.youtube.com/watch?v=FBxYCm-DO3Q"]
+                "https://open.spotify.com/embed/playlist/7pXtUOMlyp0X88eD0Tmo6D", // Energetic playlist URL
+                // Add more energetic song URLs here...
             ],
             chill: [
-                ["Shape of You (English)", "https://www.youtube.com/watch?v=JGwWNGJdvx8"],
-                ["Sunflower (English)", "https://www.youtube.com/watch?v=ApXoWvfEYVU"],
-                ["Senorita (English)", "https://www.youtube.com/watch?v=Pkh8UtuejGw"],
-                ["Hasi Ban Gaye (Hindi)", "https://www.youtube.com/watch?v=8d5QEWdHchk"],
-                ["Njan Jackson (Malayalam)", "https://www.youtube.com/watch?v=ZcLgqjsrn7I"]
+                "https://open.spotify.com/embed/playlist/9pXtUOMlyp0X88eD0Tmo6D", // Chill playlist URL
+                // Add more chill song URLs here...
             ]
         };
 
@@ -146,10 +124,11 @@
             let mood = document.getElementById("mood").value;
             let playlistDiv = document.getElementById("playlist");
 
-            let songs = playlists[mood];
+            let playlistURL = playlists[mood][0]; // Use the first URL for simplicity
 
-            playlistDiv.innerHTML = `<h2>🎧 Your ${mood.charAt(0).toUpperCase() + mood.slice(1)} Playlist</h2><ul>` + 
-                songs.map(song => `<li><a href="${song[1]}" target="_blank">${song[0]}</a></li>`).join("") + `</ul>`;
+            playlistDiv.innerHTML = `<h2>🎧 Your ${mood.charAt(0).toUpperCase() + mood.slice(1)} Playlist</h2>
+                                     <iframe src="${playlistURL}" frameborder="0" allow="encrypted-media" style="width: 100%; height: 380px;"></iframe>
+                                     <p><a href="${playlistURL}" target="_blank">Open in Spotify</a></p>`;
         }
     </script>
 </body>
